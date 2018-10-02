@@ -16,7 +16,12 @@ include_directories(/usr/local/include)
 include_directories(/usr/local/opt/openssl/include)
 link_directories(/usr/local/lib)
 link_directories(/usr/local/opt/openssl/lib)
-link_directories(/usr/local/Cellar/libuv/1*/lib)
+
+# OLD
+#link_directories(/usr/local/Cellar/libuv/1*/lib)
+
+file(GLOB LIBUV_DIR /usr/local/Cellar/libuv/1*/lib)
+link_directories(${LIBUV_DIR})
 
 endif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin") 
 
