@@ -66,6 +66,8 @@ public:
    */
   void UpdateEKF(const Eigen::VectorXd& z);
 
+  Eigen::VectorXd RadarMeasurementFunction();
+
 };
 
 #endif /* KALMAN_FILTER_H_ */

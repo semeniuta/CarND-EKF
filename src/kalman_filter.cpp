@@ -36,3 +36,21 @@ void KalmanFilter::UpdateEKF(const VectorXd& z) {
     * update the state by using Extended Kalman Filter equations
   */
 }
+
+Eigen::VectorXd KalmanFilter::RadarMeasurementFunction() {
+
+  double px = x_(0);
+  double py = x_(1);
+  double vx = x_(2);
+  double vy = x_(3);
+
+  double rho = sqrt(px*px + py*py);
+  double phi = atan(py / px);
+  double rho_dot = (px*vx + py*vy) / rho;
+
+  Eigen::VectorXd res;
+  res << rho, phi, rho_dot;
+
+  return res;
+
+}
