@@ -41,6 +41,15 @@ FusionEKF::FusionEKF() {
   H_laser_ << 1, 0, 0, 0,
               0, 1, 0, 0;
 
+
+  ekf_.F_ = MatrixXd(4, 4);
+  ekf_.F_ << 1, 0, 1, 0,
+             0, 1, 0, 1,
+             0, 0, 1, 0,
+             0, 0, 0, 1;
+  // Values at (0, 2) and (1, 3) are changed to dt
+  // before every call of ekf_.Predict
+
 }
 
 void FusionEKF::ProcessMeasurement(const MeasurementPackage& measurement_pack) {
