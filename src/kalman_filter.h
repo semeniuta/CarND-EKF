@@ -66,6 +66,11 @@ public:
    */
   void UpdateEKF(const Eigen::VectorXd& z);
 
+
+private:
+
+  void CommonUpdate(const Eigen::VectorXd& z, const Eigen::VectorXd& z_pred);
+
   Eigen::VectorXd RadarMeasurementFunction();
 
 };
