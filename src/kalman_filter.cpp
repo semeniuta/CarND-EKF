@@ -45,7 +45,7 @@ Eigen::VectorXd KalmanFilter::RadarMeasurementFunction() {
   double vy = x_(3);
 
   double rho = sqrt(px*px + py*py);
-  double phi = atan(py / px);
+  double phi = atan2(py, px);
   double rho_dot = (px*vx + py*vy) / rho;
 
   Eigen::VectorXd res;
