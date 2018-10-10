@@ -3,6 +3,8 @@
 
 #include "Eigen/Dense"
 
+double normalize_phi(double phi);
+
 class KalmanFilter {
 
 public:
