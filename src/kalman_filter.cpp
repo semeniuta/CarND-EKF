@@ -5,6 +5,9 @@
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
 
+/**
+ * Normalize angle in radians so that it is between -pi and pi
+ */
 double normalize_phi(double phi) {
 
   if ((phi > -M_PI) && (phi < M_PI)) {
@@ -26,14 +29,10 @@ double normalize_phi(double phi) {
 
   }
 
-  std::cout << "PHI_NORM: " << phi << ", " << phi_norm << std::endl;
-
   return phi_norm;
 
 }
 
-// Please note that the Eigen library does not initialize 
-// VectorXd or MatrixXd objects with zeros upon creation.
 
 void KalmanFilter::Init(VectorXd& x_in, MatrixXd& P_in, MatrixXd& F_in,
                         MatrixXd& H_in, MatrixXd& R_in, MatrixXd& Q_in) {
@@ -45,6 +44,7 @@ void KalmanFilter::Init(VectorXd& x_in, MatrixXd& P_in, MatrixXd& F_in,
   Q_ = Q_in;
 }
 
+
 void KalmanFilter::Predict() {
 
   // Predict the state
@@ -55,6 +55,7 @@ void KalmanFilter::Predict() {
 
 }
 
+
 void KalmanFilter::Update(const VectorXd& z) {
 
   // Update the state by using Kalman Filter equations
@@ -63,6 +64,7 @@ void KalmanFilter::Update(const VectorXd& z) {
   CommonUpdate(z, z_pred);
 
 }
+
 
 void KalmanFilter::UpdateEKF(const VectorXd& z) {
 
@@ -73,6 +75,7 @@ void KalmanFilter::UpdateEKF(const VectorXd& z) {
   CommonUpdate(z, z_pred);
 
 }
+
 
 void KalmanFilter::CommonUpdate(const Eigen::VectorXd& z, const Eigen::VectorXd& z_pred) {
 
@@ -92,6 +95,7 @@ void KalmanFilter::CommonUpdate(const Eigen::VectorXd& z, const Eigen::VectorXd&
   P_ = (I - K * H_) * P_;
 
 }
+
 
 Eigen::VectorXd KalmanFilter::RadarMeasurementFunction() {
 
