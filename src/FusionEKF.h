@@ -48,6 +48,8 @@ private:
   Eigen::MatrixXd H_laser_;
   Eigen::MatrixXd Hj_;
 
+  void printEstimation();
+
 };
 
 #endif /* FusionEKF_H_ */

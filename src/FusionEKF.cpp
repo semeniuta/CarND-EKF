@@ -8,6 +8,7 @@ using Eigen::MatrixXd;
 using Eigen::VectorXd;
 using std::vector;
 
+
 /*
  * Constructor.
  */
@@ -66,10 +67,11 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage& measurement_pack) {
       * Remember: you'll need to convert radar from polar to cartesian coordinates.
     */
     // first measurement
-    cout << "EKF: " << endl;
-    ekf_.x_ = VectorXd(4);
-    ekf_.x_ << 1, 1, 1, 1;
 
+    previous_timestamp_ = measurement_pack.timestamp_;
+
+    ekf_.x_ = VectorXd(4);
+    ekf_.x_ << 0, 0, 0, 0;
 
     if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
 
@@ -95,6 +97,8 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage& measurement_pack) {
                0, 1, 0, 0,
                0, 0, 1000, 0,
                0, 0, 0, 1000;
+
+    printEstimation();
 
     // done initializing, no need to predict or update
     is_initialized_ = true;
@@ -170,6 +174,14 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage& measurement_pack) {
   }
 
   // print the output
-  cout << "x_ = " << ekf_.x_ << endl;
-  cout << "P_ = " << ekf_.P_ << endl;
+  printEstimation();
+
+}
+
+
+void FusionEKF::printEstimation() {
+
+  cout << "x_ = \n" << ekf_.x_ << endl;
+  cout << "P_ = \n" << ekf_.P_ << endl;
+
 }

@@ -95,9 +95,12 @@ int main() {
   string fname = "../data/obj_pose-laser-radar-synthetic-input.txt";
   readData(fname, measurement_pack_list, ground_truth);
 
-  for (const auto& meas_package : measurement_pack_list) {
+  auto n = measurement_pack_list.size();
+  for (int i = 0; i < n; i++) {
 
-    tracking.ProcessMeasurement(meas_package);
+    cout << "x_GT = \n" << ground_truth[i] << "\n";
+
+    tracking.ProcessMeasurement(measurement_pack_list[i]);
 
     estimations.push_back(tracking.ekf_.x_);
 
