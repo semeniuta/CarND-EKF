@@ -9,7 +9,7 @@ set(CMAKE_CXX_FLAGS "${CXX_FLAGS}")
 
 set (core_sources src/tools.cpp src/FusionEKF.cpp src/kalman_filter.cpp src/tools.h src/FusionEKF.h src/kalman_filter.h)
 
-    if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 
     include_directories(/usr/local/include)
     include_directories(/usr/local/opt/openssl/include)
