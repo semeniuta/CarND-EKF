@@ -70,12 +70,6 @@ void KalmanFilter::UpdateEKF(const VectorXd& z) {
 
   VectorXd z_pred = RadarMeasurementFunction();
 
-//  Eigen::VectorXd norm_z = z;
-//  Eigen::VectorXd norm_z_pred  = z_pred;
-//  norm_z_pred(1) =  normalize_phi(z_pred(1));
-//  norm_z(1) =  normalize_phi(z(1));
-//  CommonUpdate(norm_z, norm_z_pred);
-
   CommonUpdate(z, z_pred);
 
 }
@@ -83,6 +77,9 @@ void KalmanFilter::UpdateEKF(const VectorXd& z) {
 void KalmanFilter::CommonUpdate(const Eigen::VectorXd& z, const Eigen::VectorXd& z_pred) {
 
   VectorXd y = z - z_pred;
+
+  y(1) = normalize_phi(y(1));
+
   MatrixXd Ht = H_.transpose();
   MatrixXd S = H_ * P_ * Ht + R_;
   MatrixXd Si = S.inverse();
