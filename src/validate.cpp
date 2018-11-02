@@ -73,7 +73,7 @@ void readData(
 
     }
 
-    ground_truth.push_back( readVector(iss, 4) ); // vx_groundtruth, vy_groundtruth, yaw_groundtruth, yawrate_groundtruth
+    ground_truth.push_back( readVector(iss, 4) ); // x_groundtruth, y_groundtruth, vx_groundtruth, vy_groundtruth
 
   }
 
