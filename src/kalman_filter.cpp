@@ -56,32 +56,34 @@ void KalmanFilter::Predict() {
 }
 
 
-void KalmanFilter::Update(const VectorXd& z) {
+void KalmanFilter::Update(const VectorXd& z) { // for a LIDAR measurement
 
   // Update the state by using Kalman Filter equations
 
   VectorXd z_pred = H_ * x_;
-  CommonUpdate(z, z_pred);
+
+  VectorXd y = z - z_pred;
+
+  CommonUpdate(y);
 
 }
 
 
-void KalmanFilter::UpdateEKF(const VectorXd& z) {
+void KalmanFilter::UpdateEKF(const VectorXd& z) { // for a radar measurement
 
   // Update the state by using Extended Kalman Filter equations
 
   VectorXd z_pred = RadarMeasurementFunction();
 
-  CommonUpdate(z, z_pred);
+  VectorXd y = z - z_pred;
+  y(1) = normalize_phi(y(1));
+
+  CommonUpdate(y);
 
 }
 
 
-void KalmanFilter::CommonUpdate(const Eigen::VectorXd& z, const Eigen::VectorXd& z_pred) {
-
-  VectorXd y = z - z_pred;
-
-  y(1) = normalize_phi(y(1));
+void KalmanFilter::CommonUpdate(const Eigen::VectorXd& y) {
 
   MatrixXd Ht = H_.transpose();
   MatrixXd S = H_ * P_ * Ht + R_;

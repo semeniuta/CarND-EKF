@@ -71,7 +71,7 @@ public:
 
 private:
 
-  void CommonUpdate(const Eigen::VectorXd& z, const Eigen::VectorXd& z_pred);
+  void CommonUpdate(const Eigen::VectorXd& y);
 
   Eigen::VectorXd RadarMeasurementFunction();
 
